@@ -41,6 +41,7 @@ public class CucumberITGeneratorByFeature implements CucumberITGenerator {
     private final ClassNamingScheme classNamingScheme;
 
 
+
     /**
      * @param config The configuration parameters passed to the Maven Mojo
      * @param overriddenParameters Parameters overridden from Cucumber options VM parameter (-Dcucumber.options)
@@ -169,6 +170,7 @@ public class CucumberITGeneratorByFeature implements CucumberITGenerator {
         context.put("className", FilenameUtils.removeExtension(outputFileName));
         context.put("packageName", config.getPackageName());
 
+
         velocityTemplate.merge(context, writer);
     }
 
@@ -185,6 +187,9 @@ public class CucumberITGeneratorByFeature implements CucumberITGenerator {
 
             if ("pretty".equalsIgnoreCase(formatStr)) {
                 sb.append("\"pretty\"");
+            } else if (formatStr.toLowerCase().contains("extentcucumberformatter")) {
+                // Extent folder is specified in the runner class.
+                sb.append("\"com.cucumber.listener.ExtentCucumberFormatter\"");
             } else {
                 sb.append(String.format("\"%s:%s/%s.%s\"", formatStr,
                                 config.getCucumberOutputDir().replace('\\', '/'), fileCounter,
