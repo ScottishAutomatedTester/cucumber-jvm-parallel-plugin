@@ -67,6 +67,15 @@ public class OverriddenCucumberOptionsParametersShouldOverrideParametersWithCucu
     }
 
     @Test
+    public void formatParameterIsExtent() {
+
+        params.setFormat("somethingElse");
+        params.overrideParametersWithCucumberOptions(
+                "--format com.cucumber.listener.ExtentCucumberFormatter --plugin pretty --glue somewhere");
+        assertThat(params.getFormat(), equalTo("com.cucumber.listener.ExtentCucumberFormatter,pretty"));
+    }
+
+    @Test
     public void monochromeParameterIsOverridden() {
 
         params.setMonochrome(false);

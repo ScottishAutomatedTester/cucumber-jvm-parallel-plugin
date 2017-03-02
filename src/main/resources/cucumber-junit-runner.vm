@@ -1,10 +1,14 @@
 #if ($packageName)package $packageName;
 
 #end##
+import com.cucumber.listener.ExtentCucumberFormatter;
 import org.junit.runner.RunWith;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import ppl.testTools.common.RuntimeSettings;
+import org.junit.BeforeClass;
+import java.io.File;
+
 
 @RunWith(Cucumber.class)
 @CucumberOptions(strict = $strict,
@@ -14,4 +18,11 @@ monochrome = ${monochrome},
 #if(!$featureFile.contains(".feature:") ) tags = {#if($tags)$tags#end}, #end
 glue = { $glue })
 public class $className {
+    @BeforeClass
+    public static void setup() throws Exception {
+        ExtentCucumberFormatter.initiateExtentCucumberFormatter(new File("reports/$className/index.html"));
+        ExtentCucumberFormatter.loadConfig(new File("src/test/resources/extent-config.xml"));
+        ExtentCucumberFormatter.addSystemInfo("Application URL", RuntimeSettings.getApplicationUrl());
+        ExtentCucumberFormatter.addSystemInfo("Cucumber options", RuntimeSettings.getCucumberOptions());
+    }
 }

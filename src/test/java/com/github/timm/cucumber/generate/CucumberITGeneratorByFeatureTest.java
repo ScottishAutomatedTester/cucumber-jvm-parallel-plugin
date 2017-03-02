@@ -26,7 +26,7 @@ public class CucumberITGeneratorByFeatureTest {
 
         final OverriddenCucumberOptionsParameters overriddenParameters =
                         new OverriddenCucumberOptionsParameters();
-        overriddenParameters.setTags("").setGlue("foo").setStrict(true).setFormat("json")
+        overriddenParameters.setTags("").setGlue("foo").setStrict(true).setFormat("json, html")
         .setMonochrome(false);
 
         final ClassNamingScheme classNamingScheme =

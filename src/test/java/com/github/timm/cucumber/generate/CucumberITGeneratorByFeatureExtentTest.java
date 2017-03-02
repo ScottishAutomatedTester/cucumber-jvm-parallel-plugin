@@ -11,7 +11,8 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 
-public class CucumberITGeneratorByFeatureTest {
+
+public class CucumberITGeneratorByFeatureExtentTest {
 
     CucumberITGeneratorByFeature classUnderTest;
     private TestFileGeneratorConfig config;
@@ -26,8 +27,9 @@ public class CucumberITGeneratorByFeatureTest {
 
         final OverriddenCucumberOptionsParameters overriddenParameters =
                         new OverriddenCucumberOptionsParameters();
-        overriddenParameters.setTags("").setGlue("foo").setStrict(true).setFormat("json")
-        .setMonochrome(false);
+        overriddenParameters.setTags("").setGlue("foo").setStrict(true).setMonochrome(false);
+        overriddenParameters.overrideParametersWithCucumberOptions("--format com.cucumber.listener."
+                + "ExtentCucumberFormatter --plugin pretty --glue foo");
 
         final ClassNamingScheme classNamingScheme =
                         new ClassNamingSchemeFactory(new InstanceCounter()).create("simple", null);
